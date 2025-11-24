@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Balje Nair - Portfolio</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="mediaqueries.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 
 <body class="dark-theme">
-    <!-- Snowfall Animation Container -->
     <div id="snow"></div>
     <script>
       // Winter snowfall animation
@@ -28,7 +28,6 @@
       setInterval(createSnowflake, 350);
     </script>
 
-    <!-- Entry Overlay -->
     <div class="entry-overlay" id="entryOverlay" aria-modal="true" role="dialog">
         <div class="entry-circle" id="entryCircle" aria-label="Enter" role="button" tabindex="0">
             <span class="entry-circle-label" id="entryCircleLabel">0%</span>
@@ -36,12 +35,10 @@
         <button class="btn entry-alt" id="enterNoSoundBtn" disabled>Enter without sound</button>
     </div>
 
-    <!-- Winter audio (plays after Enter) -->
     <audio id="winterBreezeAudio" autoplay loop>
       <source src="C:\Users\Balje Nair\OneDrive\Desktop\Resume-Portfolio\lonely-winter-breeze.mp3" type="audio/mpeg">
       Your browser does not support the audio tag.
     </audio>
-    <!-- Header -->
     <header class="header">
         <div class="container">
             <h1 class="logo">
@@ -53,16 +50,13 @@
         </div>
     </header>
 
-    <!-- Fog overlay -->
     <div class="fog" id="fog" aria-hidden="true">
         <div class="fog__layer l1"></div>
         <div class="fog__layer l2"></div>
     </div>
 
-    <!-- Scroll Progress Bar -->
     <div class="scroll-progress" id="scrollProgress"></div>
 
-    <!-- Hero Section with icy effects -->
     <section class="hero">
       <div class="container hero-content" style="position:relative;">
         <img src="assets/BN Logo.png" alt="BN Logo" class="hero-logo" style="width: 130px; margin-bottom: 2.2rem;">
@@ -75,10 +69,8 @@
           <button class="btn btn-secondary" id="contactBtn"><i class="fas fa-envelope"></i> Contact Me</button>
         </div>
 
-        <!-- Frosty animated shimmer overlay -->
         <div class="glisten-effect"></div>
 
-        <!-- Frosty animated ice crack SVG -->
         <svg class="ice-crack" width="260" height="46" viewBox="0 0 260 46" style="position:absolute;left:50%;top:65%;transform:translate(-50%, -30px);opacity:0.4">
           <path d="M10,28 Q45,19 75,22 Q110,27 130,7 Q156,33 190,18 Q225,16 250,44"
                 stroke="#e9faff" stroke-width="3" fill="none" opacity="0.8">
@@ -89,15 +81,45 @@
       </div>
     </section>
 
-    <!-- Resume Section (Hidden by default) -->
     <section class="resume-section" id="resumeSection">
         <div class="container">
             <div class="resume-header">
                 <h2>Resume</h2>
+                <a href="Balje Nair Resume July 2025.pdf" class="btn btn-primary" download>
+                    <i class="fas fa-file-download"></i> Download PDF
+                </a>
                 <button class="btn btn-close" id="closeResumeBtn">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
+
+            <div class="timeline">
+              <div class="timeline-item">
+                <div class="timeline-point"></div>
+                <div class="timeline-content">
+                  <span class="timeline-date">Feb 2025 – Present</span>
+                  <h4>Consultant — Capgemini</h4>
+                  <p>Delivered technical support for enterprise clients, C-level executives. Managed AV/IT, incidents, asset documentation.</p>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-point"></div>
+                <div class="timeline-content">
+                  <span class="timeline-date">Mar 2023 – Aug 2024</span>
+                  <h4>Specialist [E2] — HCL (BP)</h4>
+                  <p>IT procurement, audits, 300+ user support, townhall events, Azure AD, ServiceNow.</p>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-point"></div>
+                <div class="timeline-content">
+                  <span class="timeline-date">Jan 2021 – Mar 2023</span>
+                  <h4>Infra Engineer — NCS (Jobster)</h4>
+                  <p>Systems refresh, technical support, 3D printer project, ASEAN DG Meet, Excellence Awards.</p>
+                </div>
+              </div>
+            </div>
+
             <div class="resume-content" id="resumeStructured">
                 <div class="resume-section-item">
                     <h3>Contact Information</h3>
@@ -121,6 +143,9 @@
                         <span class="skill-tag">Git</span>
                         <span class="skill-tag">AWS</span>
                         <span class="skill-tag">Docker</span>
+                    </div>
+                    <div class="skill-charts">
+                        <canvas id="skillChart" width="300" height="190"></canvas>
                     </div>
                 </div>
                 <div class="resume-section-item">
@@ -193,7 +218,6 @@
         </div>
     </section>
 
-    <!-- Let's Connect Section -->
     <section class="connect-section" id="connectSection">
         <div class="container">
             <div class="connect-content">
@@ -214,7 +238,6 @@
         </div>
     </section>
 
-    <!-- Contact Modal -->
     <div class="modal" id="contactModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -232,7 +255,6 @@
         </div>
     </div>
 
-    <!-- Back to Top Button -->
     <button class="btn btn-back-to-top" id="backToTopBtn" aria-label="Back to top">
         <i class="fas fa-arrow-up"></i>
     </button>

@@ -43,10 +43,10 @@ function toggleTheme() {
         body.classList.remove('light-theme');
         updateThemeIcon('dark');
     }
-    
+
     // Save theme preference to localStorage
     localStorage.setItem('theme', currentTheme);
-    
+
     // Add smooth transition effect
     body.style.transition = 'background-color 0.3s ease, color 0.3s ease';
 }
@@ -54,13 +54,13 @@ function toggleTheme() {
 // Resume Management
 function showResume() {
     resumeSection.classList.add('active');
-    
+
     // Smooth scroll to resume section
-    resumeSection.scrollIntoView({ 
+    resumeSection.scrollIntoView({
         behavior: 'smooth',
         block: 'start'
     });
-    
+
     // Update button text
     viewResumeBtn.innerHTML = '<i class="fas fa-eye-slash"></i> Hide Resume';
     viewResumeBtn.onclick = hideResume;
@@ -129,13 +129,13 @@ function showResume() {
 
 function hideResume() {
     resumeSection.classList.remove('active');
-    
+
     // Smooth scroll back to top
     window.scrollTo({
         top: 0,
         behavior: 'smooth'
     });
-    
+
     // Update button text
     viewResumeBtn.innerHTML = '<i class="fas fa-file-alt"></i> View Resume';
     viewResumeBtn.onclick = showResume;
@@ -188,7 +188,7 @@ function addLoadingAnimation() {
         <p>Loading...</p>
     `;
     document.body.appendChild(loadingDiv);
-    
+
     // Remove loading animation after page loads
     window.addEventListener('load', () => {
         setTimeout(() => {
@@ -203,7 +203,7 @@ function addScrollAnimations() {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
     };
-    
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -212,7 +212,7 @@ function addScrollAnimations() {
             }
         });
     }, observerOptions);
-    
+
     // Observe resume section items
     const resumeItems = document.querySelectorAll('.resume-section-item');
     resumeItems.forEach(item => {
@@ -227,7 +227,7 @@ function addScrollAnimations() {
 function initializeApp() {
     // Initialize theme
     initializeTheme();
-    
+
     // Try to start breeze audio from the very start (best-effort per browser policies)
     (function setupEarlyAudioStart() {
         const audio = document.getElementById('bgNatureAudio');
@@ -407,10 +407,10 @@ function initializeApp() {
 
     // Add loading animation
     addLoadingAnimation();
-    
+
     // Add scroll animations
     addScrollAnimations();
-    
+
     // Event Listeners
     themeToggle.addEventListener('click', toggleTheme);
     viewResumeBtn.addEventListener('click', showResume);
@@ -444,14 +444,14 @@ function initializeApp() {
         }
     });
     document.addEventListener('keydown', handleKeyboard);
-    
+
     // Add hover effects for buttons
     const buttons = document.querySelectorAll('.btn');
     buttons.forEach(button => {
         button.addEventListener('mouseenter', function() {
             this.style.transform = 'translateY(-2px)';
         });
-        
+
         button.addEventListener('mouseleave', function() {
             this.style.transform = 'translateY(0)';
         });
@@ -466,13 +466,13 @@ function initializeApp() {
             setTimeout(() => r.remove(), 650);
         });
     });
-    
+
     // Add smooth reveal animation for hero section
     const heroContent = document.querySelector('.hero-content');
     if (heroContent) {
         heroContent.style.opacity = '0';
         heroContent.style.transform = 'translateY(30px)';
-        
+
         setTimeout(() => {
             heroContent.style.transition = 'opacity 1s ease, transform 1s ease';
             heroContent.style.opacity = '1';
@@ -514,7 +514,7 @@ function addLoadingStyles() {
             z-index: 9999;
             color: var(--text-primary);
         }
-        
+
         .spinner {
             width: 50px;
             height: 50px;
@@ -524,12 +524,12 @@ function addLoadingStyles() {
             animation: spin 1s linear infinite;
             margin-bottom: 1rem;
         }
-        
+
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        
+
         .loading-animation p {
             font-size: 1.2rem;
             color: var(--text-secondary);
@@ -557,7 +557,7 @@ window.addEventListener('load', () => {
             img.src = img.dataset.src;
         }
     });
-    
+
     // Add intersection observer for lazy loading if needed
     if ('IntersectionObserver' in window) {
         const imageObserver = new IntersectionObserver((entries, observer) => {
@@ -570,7 +570,7 @@ window.addEventListener('load', () => {
                 }
             });
         });
-        
+
         document.querySelectorAll('img[data-src]').forEach(img => {
             imageObserver.observe(img);
         });
@@ -596,7 +596,7 @@ function addInteractiveFeatures() {
     if (heroTitle) {
         const text = heroTitle.textContent;
         heroTitle.textContent = '';
-        
+
         let i = 0;
         const typeWriter = () => {
             if (i < text.length) {
@@ -605,11 +605,11 @@ function addInteractiveFeatures() {
                 setTimeout(typeWriter, 100);
             }
         };
-        
+
         // Start typing effect after a short delay
         setTimeout(typeWriter, 500);
     }
-    
+
     // Add particle effect background (optional enhancement)
     addParticleEffect();
 }
@@ -695,19 +695,19 @@ function addParticleEffect() {
     canvas.style.height = '100%';
     canvas.style.pointerEvents = 'none';
     canvas.style.zIndex = '1';
-    
+
     const hero = document.querySelector('.hero');
     if (hero) {
         hero.appendChild(canvas);
         hero.style.position = 'relative';
-        
+
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-        
+
         const particles = [];
         const particleCount = 50;
-        
+
         class Particle {
             constructor() {
                 this.x = Math.random() * canvas.width;
@@ -716,15 +716,15 @@ function addParticleEffect() {
                 this.vy = (Math.random() - 0.5) * 0.5;
                 this.size = Math.random() * 2;
             }
-            
+
             update() {
                 this.x += this.vx;
                 this.y += this.vy;
-                
+
                 if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
                 if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
             }
-            
+
             draw() {
                 ctx.fillStyle = 'rgba(99, 102, 241, 0.3)';
                 ctx.beginPath();
@@ -732,25 +732,25 @@ function addParticleEffect() {
                 ctx.fill();
             }
         }
-        
+
         // Create particles
         for (let i = 0; i < particleCount; i++) {
             particles.push(new Particle());
         }
-        
+
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
+
             particles.forEach(particle => {
                 particle.update();
                 particle.draw();
             });
-            
+
             requestAnimationFrame(animate);
         }
-        
+
         animate();
-        
+
         // Resize handler
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
@@ -762,3 +762,48 @@ function addParticleEffect() {
 // Initialize interactive features after a delay
 setTimeout(addInteractiveFeatures, 1000);
 
+// --- Start of Chart.js Initialization ---
+document.addEventListener('DOMContentLoaded', function() {
+    const ctx = document.getElementById('skillChart')?.getContext('2d');
+
+    // Check if the canvas element exists and context is available before initializing
+    if (ctx) {
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['JavaScript', 'React', 'Node.js', 'Python', 'SQL', 'Git', 'AWS', 'Docker'],
+                datasets: [{
+                    // Example skill percent or weighting
+                    data: [18, 15, 11, 12, 10, 10, 13, 11],
+                    backgroundColor: [
+                        // --- MODIFIED FOR DISTINCT COLORS ---
+                        '#11cafb', // Light Blue - JavaScript
+                        '#7dc9ff', // Pale Blue - React
+                        '#34eba6', // Mint Green - Node.js
+                        '#cafb57', // Lime Green - Python
+                        '#ff7f50', // Coral - SQL
+                        '#8a2be2', // Blue Violet - Git
+                        '#ff4500', // Orange Red - AWS
+                        '#ffd700'  // Gold - Docker
+                        // ------------------------------------
+                    ],
+                    borderWidth: 2,
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'bottom',
+                        labels: {
+                            color: '#baeaff',
+                            font: {size: 13}
+                        }
+                    }
+                },
+                cutout: '70%',
+            }
+        });
+    }
+});
+// --- End of Chart.js Initialization ---
