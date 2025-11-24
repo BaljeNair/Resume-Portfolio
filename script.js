@@ -228,7 +228,8 @@ function initializeApp() {
     // Initialize theme
     initializeTheme();
 
-    // Try to start breeze audio from the very start (best-effort per browser policies)
+    // --- START: Removed/Commented out confusing bgNatureAudio logic ---
+    /*
     (function setupEarlyAudioStart() {
         const audio = document.getElementById('bgNatureAudio');
         if (!audio) return;
@@ -268,6 +269,8 @@ function initializeApp() {
             });
         });
     })();
+    */
+    // --- END: Removed/Commented out confusing bgNatureAudio logic ---
 
     // Entry overlay loader
     const entryOverlay = document.getElementById('entryOverlay');
@@ -343,45 +346,45 @@ function initializeApp() {
             } catch {}
         }
 
+        // --- MODIFIED closeOverlay FUNCTION TO TARGET #cabin AUDIO ---
         const closeOverlay = (withSound = true) => {
             entryOverlay.style.opacity = '0';
             entryOverlay.style.transition = 'opacity .5s ease';
             setTimeout(() => entryOverlay.remove(), 500);
+
             if (withSound) {
-                const audio = document.getElementById('bgNatureAudio');
-                if (audio) {
-                    const targetVol = 0.18;
-                    audio.muted = false;
-                    audio.currentTime = 0;
-                    audio.volume = 0;
-                    // Ensure source readiness
-                    const tryPlay = () => audio.play().then(() => {
+                const cabinAudio = document.getElementById('cabin');
+                if (cabinAudio) {
+                    const targetVol = 0.3; // Setting a soft volume
+                    cabinAudio.muted = false;
+                    cabinAudio.volume = 0; // Start at 0
+
+                    const tryPlay = () => cabinAudio.play().then(() => {
                         // Smooth volume fade-in
                         const durationMs = 2000;
                         const start = performance.now();
                         function fade(now){
                             const t = Math.min(1, (now - start) / durationMs);
-                            audio.volume = targetVol * t;
+                            cabinAudio.volume = targetVol * t;
                             if (t < 1) requestAnimationFrame(fade);
                         }
                         requestAnimationFrame(fade);
-                    }).catch(() => {
-                        // Retry once, then fall back to synth breeze
-                        setTimeout(() => {
-                            audio.play().catch(() => {
-                                startWindSynth();
-                            });
-                        }, 300);
+                    }).catch(error => {
+                        console.warn("Cabin audio playback failed, falling back to synth:", error);
+                        startWindSynth();
                     });
-                    // Prefer using current src if present
-                    if (audio.readyState < 3) {
-                        audio.load();
-                    }
-                    // wait for canplaythrough before trying, but also try immediately
-                    audio.addEventListener('canplaythrough', () => {
-                        if (audio.paused) tryPlay();
-                    }, { once: true });
+
+                    // Try to play immediately
                     tryPlay();
+
+                    // Fallback using canplaythrough for reliability
+                    if (cabinAudio.readyState < 3) {
+                        cabinAudio.load();
+                    }
+                    cabinAudio.addEventListener('canplaythrough', () => {
+                         if (cabinAudio.paused) tryPlay();
+                    }, { once: true });
+
                 } else {
                     // No audio element, use synth
                     startWindSynth();
@@ -396,6 +399,8 @@ function initializeApp() {
                 requestAnimationFrame(() => { fog.style.opacity = '1'; });
             }
         };
+        // --- END MODIFIED closeOverlay FUNCTION ---
+
 
         // Click the circle to enter
         entryCircle.addEventListener('click', () => closeOverlay(true));
