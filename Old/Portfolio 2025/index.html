@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balje Nair - Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mediaqueries.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="dark-theme">
+    <!-- Entry Overlay -->
+    <div class="entry-overlay" id="entryOverlay" aria-modal="true" role="dialog">
+        <div class="entry-circle" id="entryCircle" aria-label="Enter" role="button" tabindex="0">
+            <span class="entry-circle-label" id="entryCircleLabel">0%</span>
+        </div>
+        <button class="btn entry-alt" id="enterNoSoundBtn" disabled>Enter without sound</button>
+    </div>
+
+    <!-- Nature audio (plays after Enter) -->
+    <audio id="bgNatureAudio" loop preload="none">
+        <source src="https://cdn.pixabay.com/download/audio/2022/01/12/audio_2b4f3f4d2a.mp3?filename=wind-nature-ambient-10884.mp3" type="audio/mpeg">
+        <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_9b9f1f6b28.mp3?filename=soft-wind-ambient-20671.mp3" type="audio/mpeg">
+    </audio>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">Balje Nair</h1>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Hi, I'm Balje Nair</h1>
+                <p class="hero-subtitle">Full Stack Developer & Software Engineer</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" id="viewResumeBtn">
+                        <i class="fas fa-file-alt"></i> View Resume
+                    </button>
+                    <button class="btn btn-secondary" id="contactBtn">
+                        <i class="fas fa-envelope"></i> Contact Me
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resume Section (Hidden by default) -->
+    <section class="resume-section" id="resumeSection">
+        <div class="container">
+            <div class="resume-header">
+                <h2>Resume</h2>
+                <button class="btn btn-close" id="closeResumeBtn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="resume-content">
+                <div class="resume-section-item">
+                    <h3>Contact Information</h3>
+                    <p><i class="fas fa-envelope"></i> your.email@example.com</p>
+                    <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Your City, State</p>
+                </div>
+
+                <div class="resume-section-item">
+                    <h3>Summary</h3>
+                    <p>Experienced Full Stack Developer with expertise in modern web technologies, passionate about creating scalable and user-friendly applications. Strong problem-solving skills and ability to work in fast-paced environments.</p>
+                </div>
+
+                <div class="resume-section-item">
+                    <h3>Skills</h3>
+                    <div class="skills-grid">
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">React</span>
+                        <span class="skill-tag">Node.js</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">SQL</span>
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">AWS</span>
+                        <span class="skill-tag">Docker</span>
+                    </div>
+                </div>
+
+                <div class="resume-section-item">
+                    <h3>Experience</h3>
+                    <div class="experience-item">
+                        <h4>Senior Developer - Tech Company</h4>
+                        <p class="date">2022 - Present</p>
+                        <ul>
+                            <li>Led development of web applications using React and Node.js</li>
+                            <li>Mentored junior developers and conducted code reviews</li>
+                            <li>Implemented CI/CD pipelines and automated testing</li>
+                        </ul>
+                    </div>
+                    <div class="experience-item">
+                        <h4>Full Stack Developer - Startup</h4>
+                        <p class="date">2020 - 2022</p>
+                        <ul>
+                            <li>Built responsive web applications from concept to deployment</li>
+                            <li>Collaborated with design and product teams</li>
+                            <li>Optimized application performance and user experience</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="resume-section-item">
+                    <h3>Education</h3>
+                    <div class="education-item">
+                        <h4>Bachelor of Science in Computer Science</h4>
+                        <p class="date">University Name, 2020</p>
+                        <p>Relevant coursework: Data Structures, Algorithms, Web Development, Database Systems</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Let's Connect Section -->
+    <section class="connect-section" id="connectSection">
+        <div class="container">
+            <div class="connect-content">
+                <h2 class="connect-title">Let's Connect</h2>
+                <p class="connect-subtitle">Find me on the platforms below or send me an email.</p>
+                <div class="connect-buttons">
+                    <a href="mailto:BaljeNair@gmail.com?subject=Hello%20from%20your%20portfolio" class="btn-social" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/balje-nair-5735191b9/" target="_blank" rel="noopener" class="btn-social" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://github.com/BaljeNair" target="_blank" rel="noopener" class="btn-social" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Modal -->
+    <div class="modal" id="contactModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Contact Me</h3>
+                <button class="btn btn-close" id="closeModalBtn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Ready to discuss opportunities? Click the button below to send me an email!</p>
+                <a href="mailto:BaljeNair@gmail.com?subject=Job%20Opportunity%20Inquiry" class="btn btn-primary btn-email">
+                    <i class="fas fa-envelope"></i> Send Email
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
