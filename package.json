@@ -1,0 +1,13 @@
+{
+  "name": "resume-portfolio",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "extract:resume": "node tools/extract_resume.js \"Balje Nair Resume July 2025.pdf\" > assets/resume.json"
+  },
+  "dependencies": {
+    "pdf-parse": "1.1.1"
+  }
+}
+
+
