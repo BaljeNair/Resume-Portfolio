@@ -44,63 +44,6 @@ function toggleTheme() {
   body.style.transition = 'background-color 0.3s ease, color 0.3s ease';
 }
 
-// ── Animated Skill Bars ─────────────────────────────────────────────────────
-function animateSkillBars() {
-  const bars = document.querySelectorAll('.skill-bar-fill');
-  bars.forEach(bar => {
-    const pct = bar.getAttribute('data-pct');
-    bar.style.width = pct + '%';
-  });
-}
-
-// ── GitHub Activity Feed ─────────────────────────────────────────────────────
-async function loadGithubFeed() {
-  const list = document.getElementById('githubFeedList');
-  if (!list) return;
-  try {
-    const res = await fetch('https://api.github.com/users/BaljeNair/events/public?per_page=10');
-    if (!res.ok) throw new Error('Failed');
-    const events = await res.json();
-    const relevant = events.filter(e =>
-      ['PushEvent', 'CreateEvent', 'WatchEvent', 'ForkEvent', 'PullRequestEvent'].includes(e.type)
-    ).slice(0, 5);
-    if (!relevant.length) {
-      list.innerHTML = '<p class="github-feed-loading">No recent public activity found.</p>';
-      return;
-    }
-    list.innerHTML = '';
-    relevant.forEach(e => {
-      const repo = e.repo.name;
-      const repoUrl = `https://github.com/${repo}`;
-      const date = new Date(e.created_at).toLocaleDateString('en-SG', { day: 'numeric', month: 'short', year: 'numeric' });
-      let icon = 'fa-code-commit', text = '';
-      if (e.type === 'PushEvent') {
-        const count = e.payload.commits?.length || 1;
-        icon = 'fa-code-commit';
-        text = `Pushed ${count} commit${count > 1 ? 's' : ''} to <a href="${repoUrl}" target="_blank" rel="noopener">${repo}</a>`;
-      } else if (e.type === 'CreateEvent') {
-        icon = 'fa-plus';
-        text = `Created ${e.payload.ref_type} in <a href="${repoUrl}" target="_blank" rel="noopener">${repo}</a>`;
-      } else if (e.type === 'WatchEvent') {
-        icon = 'fa-star';
-        text = `Starred <a href="${repoUrl}" target="_blank" rel="noopener">${repo}</a>`;
-      } else if (e.type === 'ForkEvent') {
-        icon = 'fa-code-branch';
-        text = `Forked <a href="${repoUrl}" target="_blank" rel="noopener">${repo}</a>`;
-      } else if (e.type === 'PullRequestEvent') {
-        icon = 'fa-code-pull-request';
-        text = `${e.payload.action} a pull request in <a href="${repoUrl}" target="_blank" rel="noopener">${repo}</a>`;
-      }
-      const div = document.createElement('div');
-      div.className = 'github-event';
-      div.innerHTML = `<i class="fas ${icon}"></i><div class="github-event-text">${text}<span class="github-event-date">${date}</span></div>`;
-      list.appendChild(div);
-    });
-  } catch {
-    list.innerHTML = '<p class="github-feed-loading">Could not load activity. <a href="https://github.com/BaljeNair" target="_blank" rel="noopener" style="color:var(--accent-primary)">View on GitHub →</a></p>';
-  }
-}
-
 // ── Skills Radar Chart ──────────────────────────────────────────────────────
 let skillChartInstance = null;
 
@@ -123,7 +66,7 @@ function initSkillChart() {
       labels: ['Python', 'SQL', 'Azure AD', 'ServiceNow', 'JavaScript', 'ABM'],
       datasets: [{
         label: 'Proficiency',
-        data: [85, 60, 90, 85, 65, 85],
+        data: [80, 64, 90, 85, 68, 80],
         backgroundColor: accentFill, borderColor: accent, borderWidth: 2,
         pointBackgroundColor: accent, pointBorderColor: pointBorder, pointBorderWidth: 2,
         pointRadius: 4, pointHoverRadius: 6,
@@ -162,8 +105,6 @@ function showResume() {
   const structured = document.getElementById('resumeStructured');
   if (structured) structured.style.display = '';
   setTimeout(initSkillChart, 350);
-  setTimeout(animateSkillBars, 500);
-
   fetch('assets/resume.json', { cache: 'no-store' })
     .then(r => (r.ok ? r.json() : null))
     .then(data => {
@@ -278,11 +219,6 @@ function initializeApp() {
     const easeInOutCubic = x => x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
     let start = null;
 
-    // Enable "Enter without sound" immediately — don't gate it behind the animation
-    enterNoSoundBtn.classList.add('enabled');
-    enterNoSoundBtn.removeAttribute('disabled');
-    entryCircle.style.cursor = 'pointer';
-
     function animate(now) {
       if (start === null) start = now;
       const elapsed = now - start;
@@ -294,6 +230,9 @@ function initializeApp() {
       if (t < 1) {
         requestAnimationFrame(animate);
       } else {
+        enterNoSoundBtn.classList.add('enabled');
+        enterNoSoundBtn.removeAttribute('disabled');
+        entryCircle.style.cursor = 'pointer';
         entryCircle.tabIndex = 0;
       }
     }
@@ -356,7 +295,6 @@ function initializeApp() {
 
   addLoadingAnimation();
   addScrollAnimations();
-
 
   themeToggle.addEventListener('click', toggleTheme);
 
