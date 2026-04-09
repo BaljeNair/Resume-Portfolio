@@ -42,6 +42,8 @@ function toggleTheme() {
   }
   localStorage.setItem('theme', currentTheme);
   body.style.transition = 'background-color 0.3s ease, color 0.3s ease';
+  // Re-draw chart with correct theme colors if it's visible
+  if (skillChartInstance) initSkillChart();
 }
 
 // ── Animated Skill Bars ─────────────────────────────────────────────────────
@@ -109,21 +111,21 @@ function initSkillChart() {
   if (!canvas) return;
   if (skillChartInstance) { skillChartInstance.destroy(); skillChartInstance = null; }
   const isDark = !body.classList.contains('light-theme');
-  const accent      = isDark ? '#80cfff' : '#16a34a';
-  const accentFill  = isDark ? 'rgba(128,207,255,0.18)' : 'rgba(22,163,74,0.15)';
-  const gridColor   = isDark ? 'rgba(128,207,255,0.18)' : 'rgba(0,0,0,0.10)';
-  const labelColor  = isDark ? '#c2e9fb' : '#5a6a62';
-  const tickColor   = isDark ? '#80cfff' : '#1b211b';
-  const pointBorder = isDark ? '#183059' : '#f7faf7';
-  const tooltipBg   = isDark ? 'rgba(24,48,89,0.96)' : 'rgba(255,255,255,0.96)';
-  const tooltipText = isDark ? '#c2e9fb' : '#1b211b';
+  const accent      = isDark ? '#80cfff' : '#0077b6';
+  const accentFill  = isDark ? 'rgba(128,207,255,0.18)' : 'rgba(0,119,182,0.15)';
+  const gridColor   = isDark ? 'rgba(128,207,255,0.18)' : 'rgba(0,119,182,0.15)';
+  const labelColor  = isDark ? '#c2e9fb' : '#0d1f2d';
+  const tickColor   = isDark ? '#80cfff' : '#0077b6';
+  const pointBorder = isDark ? '#183059' : '#eaf3fb';
+  const tooltipBg   = isDark ? 'rgba(24,48,89,0.96)' : 'rgba(234,243,251,0.98)';
+  const tooltipText = isDark ? '#c2e9fb' : '#0d1f2d';
   skillChartInstance = new Chart(canvas, {
     type: 'radar',
     data: {
-      labels: ['Python', 'SQL', 'Azure AD', 'ServiceNow', 'JavaScript', 'ABM'],
+      labels: ['Python', 'SQL', 'JavaScript', 'ServiceNow', 'Azure AD', 'ABM'],
       datasets: [{
         label: 'Proficiency',
-        data: [85, 60, 90, 85, 65, 85],
+        data: [90, 50, 65, 90, 90, 90],
         backgroundColor: accentFill, borderColor: accent, borderWidth: 2,
         pointBackgroundColor: accent, pointBorderColor: pointBorder, pointBorderWidth: 2,
         pointRadius: 4, pointHoverRadius: 6,

@@ -15,16 +15,16 @@
 
 /* Light Theme Colors */
 .light-theme {
-  --bg-primary: #f7faf7;
-  --bg-secondary: #eef4ee;
-  --bg-tertiary: #dee6de;
-  --text-primary: #1b211b;
-  --text-secondary: #5a6a62;
-  --accent-primary: #16a34a;
-  --accent-secondary: #15803d;
-  --border-color: #c9d3c9;
-  --shadow-color: rgba(0, 0, 0, 0.12);
-  --modal-overlay: rgba(0, 0, 0, 0.5);
+  --bg-primary: #eaf3fb;
+  --bg-secondary: #d4e9f7;
+  --bg-tertiary: #b8d8f0;
+  --text-primary: #0d1f2d;
+  --text-secondary: #2c4a5e;
+  --accent-primary: #0077b6;
+  --accent-secondary: #005f8e;
+  --border-color: #89b8d8;
+  --shadow-color: rgba(0, 80, 140, 0.12);
+  --modal-overlay: rgba(0, 30, 60, 0.5);
 }
 
 /* Reset and Base Styles */
@@ -179,6 +179,15 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  flex-shrink: 0;
+}
+
+/* Entry overlay toggle stays scoped inside the overlay */
+.entry-overlay .theme-toggle {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.5rem;
 }
 
 .theme-toggle:hover {
@@ -1018,6 +1027,12 @@ body {
   animation: snowfall linear infinite;
 }
 
+/* Light mode snowflakes — darker so they show on light backgrounds */
+.light-theme .snowflake {
+  background: radial-gradient(circle at 30% 30%, #5ba8d4, #2c7da0 60%, transparent 100%);
+  opacity: 0.5;
+}
+
 @keyframes snowfall {
   0% {
     top: -2em;
@@ -1093,7 +1108,7 @@ body {
 }
 
 .timeline-date {
-  color: #80cfff;
+  color: var(--accent-primary);
   font-size: 0.98rem;
   font-weight: bold;
   margin-bottom: 2px;
@@ -1103,12 +1118,12 @@ body {
 .timeline-content h4 {
   margin: 0 0 4px 0;
   font-weight: 600;
-  color: var(--accent-primary, #22c55e);
+  color: var(--accent-primary);
 }
 
 .timeline-content p {
   margin: 0;
-  color: #bfefff;
+  color: var(--text-secondary);
   font-size: 1rem;
 }
 
@@ -1129,7 +1144,7 @@ body {
   gap: 0.5rem;
   background: rgba(34, 197, 94, 0.12);
   border: 1.5px solid rgba(34, 197, 94, 0.5);
-  color: #4ade80;
+  color: #16a34a;
   font-size: 0.85rem;
   font-weight: 600;
   padding: 0.4rem 1rem;
@@ -1138,13 +1153,23 @@ body {
   letter-spacing: 0.3px;
 }
 
+.light-theme .open-to-work-badge {
+  background: rgba(34, 197, 94, 0.12);
+  border-color: rgba(34, 197, 94, 0.5);
+  color: #16a34a;
+}
+
 .otw-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #4ade80;
+  background: #22c55e;
   animation: otw-pulse 1.8s ease-in-out infinite;
   flex-shrink: 0;
+}
+
+.light-theme .otw-dot {
+  background: #22c55e;
 }
 
 @keyframes otw-pulse {
@@ -1319,4 +1344,88 @@ body {
   color: var(--text-secondary);
   line-height: 1.5;
   margin: 0;
+}
+
+/* ── Light Mode Overrides ───────────────────────────── */
+.light-theme .hero {
+  background: linear-gradient(135deg, #c8e6f7 0%, #eaf3fb 100%);
+}
+
+.light-theme .resume-section {
+  background: #eaf3fb;
+}
+
+.light-theme .resume-section-item {
+  background: #ffffff;
+  border-color: #89b8d8;
+  color: #0d1f2d;
+}
+
+.light-theme .resume-section-item h3 {
+  color: #0077b6;
+}
+
+.light-theme .timeline-content {
+  background: rgba(0, 119, 182, 0.05);
+}
+
+.light-theme .timeline-point {
+  background: linear-gradient(135deg, #0077b6, #005f8e);
+  border-color: #eaf3fb;
+}
+
+.light-theme .skill-bar-track {
+  background: rgba(0, 119, 182, 0.12);
+}
+
+.light-theme .skill-bar-fill {
+  background: linear-gradient(90deg, #0077b6, #48cae4);
+}
+
+.light-theme .skill-charts {
+  background: rgba(0, 119, 182, 0.06);
+}
+
+.light-theme .github-feed {
+  background: #ffffff;
+  border-color: #89b8d8;
+}
+
+.light-theme .connect-section {
+  background: #d4e9f7;
+}
+
+.light-theme .experience-item,
+.light-theme .education-item {
+  background: #f0f8ff;
+  border-left-color: #0077b6;
+}
+
+.light-theme .experience-item h4,
+.light-theme .education-item h4 {
+  color: #0077b6;
+}
+
+.light-theme .skills-grid .skill-tag {
+  background-color: #0077b6;
+  color: #ffffff;
+}
+
+.light-theme .hero-subtitle {
+  color: #2c4a5e;
+}
+
+.light-theme .btn-primary {
+  background: linear-gradient(135deg, #0077b6, #005f8e);
+  color: #ffffff;
+}
+
+.light-theme .btn-secondary {
+  border-color: #0077b6;
+  color: #0077b6;
+}
+
+.light-theme .header {
+  background-color: #c0dcee;
+  border-bottom-color: #89b8d8;
 }
