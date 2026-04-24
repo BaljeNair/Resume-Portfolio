@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Balje Nair - IT Infrastructure Engineer & Portfolio</title>
+  <title>Balje Nair - IT Consultant & Infrastructure Specialist</title>
 
   <!-- SEO Meta -->
-  <meta name="description" content="Balje Nair — IT Consultant & Infrastructure Engineer based in Singapore. 5+ years supporting Fortune 500 clients. Open to remote/hybrid roles." />
-  <meta name="keywords" content="Balje Nair, IT Consultant, Infrastructure Engineer, ServiceNow, Azure AD, Singapore, Remote" />
+  <meta name="description" content="Balje Nair — IT Consultant & Infrastructure Specialist based in Singapore. 5+ years supporting Fortune 500 clients. Open to remote/hybrid roles." />
+  <meta name="keywords" content="Balje Nair, IT Consultant, Infrastructure Specialist, ServiceNow, Azure AD, Singapore, Remote" />
   <meta name="author" content="Balje Nair" />
   <meta name="robots" content="index, follow" />
 
-  <!-- Open Graph (LinkedIn, Facebook, WhatsApp previews) -->
-  <meta property="og:title" content="Balje Nair — IT Infrastructure Engineer" />
-  <meta property="og:description" content="Results-driven IT professional with 5+ years across Fortune 500 clients. Open to remote/hybrid opportunities." />
+  <!-- Open Graph -->
+  <meta property="og:title" content="Balje Nair — IT Consultant & Infrastructure Specialist" />
+  <meta property="og:description" content="Results-driven IT Consultant with 5+ years across Fortune 500 clients. Open to remote/hybrid opportunities." />
   <meta property="og:url" content="https://balje.tech" />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://balje.tech/assets/BN_Logo.png" />
@@ -43,66 +43,26 @@
 </head>
 
 <body class="dark-theme">
-  <!-- Snow background -->
+  <!-- Snow background (kept — subtle and tasteful) -->
   <div id="snow"></div>
   <script>
-    // Winter snowfall animation - small blurry snowballs
     const snowContainer = document.getElementById("snow");
-
     function createSnowflake() {
       const snowflake = document.createElement("span");
       snowflake.className = "snowflake";
-
-      // Random horizontal position
       snowflake.style.left = Math.random() * 100 + "vw";
-
-      // Small, subtle snowballs (4–8px)
-      const size = 4 + Math.random() * 4;
+      const size = 3 + Math.random() * 3;
       snowflake.style.width = size + "px";
       snowflake.style.height = size + "px";
-
-      // Random fall duration
-      snowflake.style.animationDuration = 7 + Math.random() * 6 + "s";
-
+      snowflake.style.animationDuration = 8 + Math.random() * 7 + "s";
       snowContainer.appendChild(snowflake);
-
-      // Remove after it falls
-      setTimeout(() => snowflake.remove(), 14000);
+      setTimeout(() => snowflake.remove(), 16000);
     }
-
-    // Reduced spawn rate for a calmer effect
-    setInterval(createSnowflake, 650);
+    setInterval(createSnowflake, 900);
   </script>
 
-  <!-- Entry overlay -->
-  <div class="entry-overlay" id="entryOverlay" aria-modal="true" role="dialog">
-    <!-- Theme toggle visible from the very start -->
-    <button class="theme-toggle entry-theme-toggle" id="entryThemeToggle"
-      aria-label="Toggle theme">
-      <i class="fas fa-moon"></i>
-    </button>
-    <div
-      class="entry-circle"
-      id="entryCircle"
-      aria-label="Enter"
-      role="button"
-      tabindex="0"
-    >
-      <span class="entry-circle-label" id="entryCircleLabel">0</span>
-    </div>
-    <div class="entry-actions">
-      <button class="btn entry-alt" id="enterNoSoundBtn" disabled>
-        Enter without sound
-      </button>
-    </div>
-  </div>
-
-  <!-- Ambient cabin audio -->
-  <audio id="cabin" autoplay loop muted>
-    <source src="assets/cozy-cabin-fire-423386.mp3" type="audio/mpeg" />
-    <source src="assets/lonely-winter-breeze.mp3" type="audio/mpeg" />
-    Your browser does not support the audio tag.
-  </audio>
+  <!-- Scroll progress -->
+  <div class="scroll-progress" id="scrollProgress"></div>
 
   <!-- Header -->
   <header class="header">
@@ -114,24 +74,22 @@
           class="logo-img"
         />
       </h1>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="#about" class="nav-link">About</a>
+        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#experience" class="nav-link">Experience</a>
+        <a href="#certifications" class="nav-link">Certifications</a>
+        <a href="#connectSection" class="nav-link">Contact</a>
+      </nav>
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
         <i class="fas fa-moon"></i>
       </button>
     </div>
   </header>
 
-  <!-- Fog overlay -->
-  <div class="fog" id="fog" aria-hidden="true">
-    <div class="foglayer l1"></div>
-    <div class="foglayer l2"></div>
-  </div>
-
-  <!-- Scroll progress -->
-  <div class="scroll-progress" id="scrollProgress"></div>
-
   <!-- Hero -->
-  <section class="hero">
-    <div class="container hero-content" style="position: relative">
+  <section class="hero" id="hero">
+    <div class="container hero-content">
       <img
         src="assets/BN_Logo.png"
         alt="BN Logo"
@@ -142,13 +100,12 @@
       <!-- Open to Work badge -->
       <div class="open-to-work-badge">
         <span class="otw-dot"></span>
-        Open to Work — Remote / Hybrid
+        Open to Work
       </div>
 
       <h1 class="hero-title">Hi, I'm Balje Nair</h1>
-      <p class="hero-subtitle">
-        IT Infrastructure Engineer &amp; Project Manager
-      </p>
+      <p class="hero-subtitle">IT Consultant &amp; Infrastructure Specialist</p>
+      <p class="hero-tagline">Singapore &nbsp;·&nbsp; 5+ Years &nbsp;·&nbsp; Fortune 500 Clients &nbsp;·&nbsp; Remote / Hybrid Ready</p>
       <div class="hero-buttons">
         <button class="btn btn-primary" id="viewResumeBtn">
           <i class="fas fa-file-alt"></i> View Resume
@@ -157,37 +114,44 @@
           <i class="fas fa-envelope"></i> Contact Me
         </button>
       </div>
+    </div>
+  </section>
 
-      <!-- Decorative ice crack -->
-      <div class="glisten-effect"></div>
-      <svg
-        class="ice-crack"
-        width="260"
-        height="46"
-        viewBox="0 0 260 46"
-        style="position: absolute; left: 50%; top: 65%; transform: translate(-50%, -30px); opacity: 0.4"
-      >
-        <path
-          d="M10,28 Q45,19 75,22 Q110,27 130,7 Q156,33 190,18 Q225,16 250,44"
-          stroke="#e9faff"
-          stroke-width="3"
-          fill="none"
-          opacity="0.8"
-        >
-          <animate
-            attributeName="opacity"
-            values="0.5;0.89;0.5"
-            dur="3s"
-            repeatCount="indefinite"
-          />
-          <animate
-            attributeName="stroke-width"
-            values="3;5;3"
-            dur="2s"
-            repeatCount="indefinite"
-          />
-        </path>
-      </svg>
+  <!-- About Section -->
+  <section class="about-section" id="about">
+    <div class="container">
+      <div class="about-content">
+        <div class="about-text">
+          <h2 class="section-heading">About Me</h2>
+          <p>
+            I'm an IT Consultant and Infrastructure Specialist based in Singapore, currently working at Capgemini supporting enterprise clients including C-level executives. With over 5 years in the industry, I've built my career across Fortune 500 environments — managing large-scale hardware deployments, resolving high-priority incidents, and ensuring seamless IT delivery at critical business events.
+          </p>
+          <p>
+            What drives me is the intersection of technical precision and people impact. Whether it's supporting 300+ users across multiple sites, leading a technical refresh project, or keeping AV/IT running flawlessly during an executive townhall — I take ownership and get things done.
+          </p>
+          <p>
+            I'm currently pursuing a BSc (Hons) in Computing Science at Coventry University, and actively seeking remote or hybrid opportunities where I can bring my infrastructure expertise and grow into broader IT leadership.
+          </p>
+        </div>
+        <div class="about-stats">
+          <div class="stat-card">
+            <span class="stat-number">5+</span>
+            <span class="stat-label">Years Experience</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">300+</span>
+            <span class="stat-label">Users Supported</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">3</span>
+            <span class="stat-label">Fortune 500 Clients</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">2</span>
+            <span class="stat-label">Excellence Awards</span>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -211,6 +175,7 @@
       </div>
 
       <div class="resume-content" id="resumeStructured">
+
         <div class="resume-section-item">
           <h3>Contact Information</h3>
           <p class="contact-detail">
@@ -219,31 +184,18 @@
           </p>
           <p class="contact-detail">
             <i class="fab fa-linkedin"></i>
-            <a
-              href="https://www.linkedin.com/in/balje-nair-5735191b9"
-              target="_blank"
-              rel="noopener"
-              >linkedin.com/in/balje-nair-5735191b9</a
-            >
+            <a href="https://www.linkedin.com/in/balje-nair-5735191b9" target="_blank" rel="noopener">linkedin.com/in/balje-nair-5735191b9</a>
           </p>
           <p class="contact-detail">
             <i class="fab fa-github"></i>
-            <a
-              href="https://github.com/BaljeNair"
-              target="_blank"
-              rel="noopener"
-              >github.com/BaljeNair</a
-            >
+            <a href="https://github.com/BaljeNair" target="_blank" rel="noopener">github.com/BaljeNair</a>
           </p>
         </div>
 
         <div class="resume-section-item">
           <h3>Professional Summary</h3>
           <p class="summary-tagline">
-            <strong
-              >IT Consultant | Infrastructure &amp; Technical Support |
-              Remote/Hybrid-Ready</strong
-            >
+            <strong>IT Consultant | Infrastructure &amp; Technical Support | Remote/Hybrid-Ready</strong>
           </p>
           <p id="summaryText">
             Results-driven IT professional with 5 years of experience in
@@ -257,8 +209,7 @@
           </p>
         </div>
 
-        <div class="resume-section-item">
-          <h3>Skills</h3>
+        <div class="resume-section-item" id="skills">
           <div class="skills-grid">
             <span class="skill-tag">Python</span>
             <span class="skill-tag">SQL</span>
@@ -272,20 +223,20 @@
           </div>
           <div class="skill-bars" id="skillBars">
             <div class="skill-bar-item">
+              <div class="skill-bar-label"><span>ServiceNow</span><span class="skill-bar-pct">95%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="95"></div></div>
+            </div>
+            <div class="skill-bar-item">
               <div class="skill-bar-label"><span>Azure AD</span><span class="skill-bar-pct">90%</span></div>
               <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="90"></div></div>
             </div>
             <div class="skill-bar-item">
-              <div class="skill-bar-label"><span>Python</span><span class="skill-bar-pct">85%</span></div>
-              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="85"></div></div>
+              <div class="skill-bar-label"><span>ABM</span><span class="skill-bar-pct">90%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="90"></div></div>
             </div>
             <div class="skill-bar-item">
-              <div class="skill-bar-label"><span>ServiceNow</span><span class="skill-bar-pct">85%</span></div>
-              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="85"></div></div>
-            </div>
-            <div class="skill-bar-item">
-              <div class="skill-bar-label"><span>ABM</span><span class="skill-bar-pct">85%</span></div>
-              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="85"></div></div>
+              <div class="skill-bar-label"><span>Python</span><span class="skill-bar-pct">75%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="75"></div></div>
             </div>
             <div class="skill-bar-item">
               <div class="skill-bar-label"><span>JavaScript</span><span class="skill-bar-pct">65%</span></div>
@@ -298,84 +249,38 @@
           </div>
         </div>
 
-        <div class="resume-section-item">
-          <h3>Experience</h3>
+        <div class="resume-section-item" id="experience">
           <div id="experienceList">
             <div class="experience-item">
               <h4>Consultant – Capgemini, Singapore</h4>
               <p class="date">Feb 2025 – Present</p>
               <ul>
-                <li>
-                  Delivered end-to-end technical support and infrastructure
-                  services for enterprise clients, including C-level executives.
-                </li>
-                <li>
-                  Resolved high-priority incidents, escalations, and user issues
-                  through ServiceNow and remote management tools.
-                </li>
-                <li>
-                  Supported on-site executive meetings, ensuring zero disruption
-                  in AV/IT services.
-                </li>
-                <li>
-                  Contributed to asset management and internal process
-                  documentation for smoother team workflows.
-                </li>
+                <li>Delivered end-to-end technical support and infrastructure services for enterprise clients, including C-level executives.</li>
+                <li>Resolved high-priority incidents, escalations, and user issues through ServiceNow and remote management tools.</li>
+                <li>Supported on-site executive meetings, ensuring zero disruption in AV/IT services.</li>
+                <li>Contributed to asset management and internal process documentation for smoother team workflows.</li>
               </ul>
             </div>
-
             <div class="experience-item">
               <h4>Specialist E2 – HCL (British Petroleum), Singapore</h4>
               <p class="date">Mar 2023 – Aug 2024</p>
               <ul>
-                <li>
-                  Managed IT procurement and conducted monthly physical audits to
-                  ensure accurate asset tracking.
-                </li>
-                <li>
-                  Delivered technical support for 300+ users across multiple
-                  locations, including BitLocker, MFA, AD, and AAD.
-                </li>
-                <li>
-                  Diagnosed network and hardware issues, coordinating with
-                  infrastructure teams for resolution.
-                </li>
-                <li>
-                  Supported high-profile townhall events, including for
-                  Castrol China’s VP, with seamless tech delivery.
-                </li>
-                <li>
-                  Tools: ServiceNow, Azure AD, SysTrack, WorkBlaze.
-                </li>
+                <li>Managed IT procurement and conducted monthly physical audits to ensure accurate asset tracking.</li>
+                <li>Delivered technical support for 300+ users across multiple locations, including BitLocker, MFA, AD, and AAD.</li>
+                <li>Diagnosed network and hardware issues, coordinating with infrastructure teams for resolution.</li>
+                <li>Supported high-profile townhall events, including for Castrol China's VP, with seamless tech delivery.</li>
+                <li>Tools: ServiceNow, Azure AD, SysTrack, WorkBlaze.</li>
               </ul>
             </div>
-
             <div class="experience-item">
-              <h4>
-                NCS via Jobster – Infrastructure Engineer / Technical Refresh
-                Engineer, Singapore
-              </h4>
+              <h4>NCS via Jobster – Infrastructure Engineer / Technical Refresh Engineer, Singapore</h4>
               <p class="date">Jan 2021 – Mar 2023</p>
               <ul>
-                <li>
-                  Led imaging, baseline setup, and deployment of systems during
-                  large-scale refresh projects.
-                </li>
-                <li>
-                  Troubleshot hardware, software, and network issues using
-                  diagnostic tools and provided responsive user support.
-                </li>
-                <li>
-                  Recovered user data and applications while maintaining
-                  business continuity.
-                </li>
-                <li>
-                  Key contributor at ASEAN DG Meet as Lead Support Engineer.
-                </li>
-                <li>
-                  Awards: NCS Infra Excellence Awards (Q3 &amp; Q4 2022), Best
-                  MS Team Award.
-                </li>
+                <li>Led imaging, baseline setup, and deployment of systems during large-scale refresh projects.</li>
+                <li>Troubleshot hardware, software, and network issues using diagnostic tools and provided responsive user support.</li>
+                <li>Recovered user data and applications while maintaining business continuity.</li>
+                <li>Key contributor at ASEAN DG Meet as Lead Support Engineer.</li>
+                <li>Awards: NCS Infra Excellence Awards (Q3 &amp; Q4 2022), Best MS Team Award.</li>
               </ul>
             </div>
           </div>
@@ -396,9 +301,7 @@
               <h4>Temasek Polytechnic – Diploma in Mechatronics</h4>
               <p class="date">Mar 2012 – Oct 2016</p>
               <ul>
-                <li>
-                  Final Year Project: Designed and built a custom 3D printer.
-                </li>
+                <li>Final Year Project: Designed and built a custom 3D printer.</li>
                 <li>Core Modules: Digital Fundamentals, Dynamics, Automation.</li>
               </ul>
             </div>
@@ -408,20 +311,56 @@
         <div class="resume-section-item">
           <h3>Leadership &amp; Project Experience</h3>
           <ul>
-            <li>
-              Mentored junior engineers during hardware refresh projects,
-              ensuring knowledge transfer.
-            </li>
-            <li>
-              Led technical teams at executive-level events, coordinating
-              seamless IT execution.
-            </li>
-            <li>
-              Served as key liaison between internal technical teams and
-              external stakeholders.
-            </li>
+            <li>Mentored junior engineers during hardware refresh projects, ensuring knowledge transfer.</li>
+            <li>Led technical teams at executive-level events, coordinating seamless IT execution.</li>
+            <li>Served as key liaison between internal technical teams and external stakeholders.</li>
           </ul>
         </div>
+
+        <div class="resume-section-item" id="certifications">
+          <h3>Certifications</h3>
+          <div class="cert-list">
+            <div class="cert-item cert-inprogress">
+              <div class="cert-icon"><i class="fas fa-certificate"></i></div>
+              <div class="cert-details">
+                <h4>ITIL 4 Foundation</h4>
+                <p class="cert-issuer">AXELOS</p>
+                <span class="cert-badge inprogress">In Progress — Target Q1 2026</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="resume-section-item" id="languages">
+          <h3>Languages</h3>
+          <div class="lang-grid">
+            <div class="lang-item">
+              <span class="lang-name">English</span>
+              <span class="lang-level fluent">Fluent</span>
+            </div>
+            <div class="lang-item">
+              <span class="lang-name">Tamil</span>
+              <span class="lang-level fluent">Fluent</span>
+            </div>
+            <div class="lang-item">
+              <span class="lang-name">Mandarin</span>
+              <span class="lang-level elementary">Elementary</span>
+            </div>
+            <div class="lang-item">
+              <span class="lang-name">Thai</span>
+              <span class="lang-level elementary">Elementary</span>
+            </div>
+            <div class="lang-item">
+              <span class="lang-name">Spanish</span>
+              <span class="lang-level elementary">Elementary</span>
+            </div>
+            <div class="lang-item">
+              <span class="lang-name">Tagalog</span>
+              <span class="lang-level elementary">Elementary</span>
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <!-- Timeline overview -->
@@ -458,7 +397,7 @@
   <section class="connect-section" id="connectSection">
     <div class="container">
       <div class="connect-content">
-        <h2 class="connect-title">Let’s Connect</h2>
+        <h2 class="connect-title">Let's Connect</h2>
         <p class="connect-subtitle">
           Find me on the platforms below or send me an email.
         </p>
@@ -507,35 +446,28 @@
     </div>
   </section>
 
-  <!-- Contact modal fallback -->
-  <section>
-    <div class="modal" id="contactModal">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h3>Contact Me</h3>
-          <button class="btn btn-close" id="closeModalBtn">
-            <i class="fas fa-times"></i>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p>
-            Ready to discuss opportunities? Click the button below to send me an
-            email!
-          </p>
-          <a href="mailto:BaljeNair@gmail.com" class="btn btn-primary btn-email">
-            <i class="fas fa-envelope"></i> Send Email
-          </a>
-        </div>
+  <!-- Contact modal -->
+  <div class="modal" id="contactModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Contact Me</h3>
+        <button class="btn btn-close" id="closeModalBtn">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>
+          Ready to discuss opportunities? Click the button below to send me an email!
+        </p>
+        <a href="mailto:BaljeNair@gmail.com" class="btn btn-primary btn-email">
+          <i class="fas fa-envelope"></i> Send Email
+        </a>
       </div>
     </div>
-  </section>
+  </div>
 
   <!-- Back to top -->
-  <button
-    class="btn btn-back-to-top"
-    id="backToTopBtn"
-    aria-label="Back to top"
-  >
+  <button class="btn btn-back-to-top" id="backToTopBtn" aria-label="Back to top">
     <i class="fas fa-chevron-up"></i>
   </button>
 
