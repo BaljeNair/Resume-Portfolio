@@ -150,10 +150,49 @@
             <span class="stat-number">2</span>
             <span class="stat-label">Excellence Awards</span>
           </div>
+          <!-- Want to Know More button -->
+          <button class="want-to-know-btn" id="wantToKnowBtn" onclick="openProfileBot()">
+            <i class="fas fa-robot"></i>
+            <span>Want to know more?</span>
+            <i class="fas fa-chevron-right wtkb-arrow"></i>
+          </button>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- Profile Chat Bot -->
+  <div class="profile-bot-overlay" id="profileBotOverlay" onclick="closeProfileBot()"></div>
+  <div class="profile-bot" id="profileBot">
+    <div class="profile-bot-header">
+      <div class="profile-bot-title">
+        <div class="profile-bot-avatar"><i class="fas fa-robot"></i></div>
+        <div>
+          <p class="profile-bot-name">BN Assistant</p>
+          <p class="profile-bot-status"><span class="bot-online-dot"></span>Ask me about Balje</p>
+        </div>
+      </div>
+      <button class="profile-bot-close" onclick="closeProfileBot()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="profile-bot-messages" id="profileBotMessages">
+      <div class="bot-msg bot">
+        <p>Hi there! 👋 I'm BN Assistant. I can answer questions about Balje's professional background, skills, experience, and more.</p>
+        <p style="margin-top:0.5rem">Try asking:</p>
+        <div class="bot-suggestions">
+          <button onclick="askSuggestion(this)">What are Balje's skills?</button>
+          <button onclick="askSuggestion(this)">Where has he worked?</button>
+          <button onclick="askSuggestion(this)">What certifications does he have?</button>
+          <button onclick="askSuggestion(this)">What languages does he speak?</button>
+          <button onclick="askSuggestion(this)">Is he open to work?</button>
+          <button onclick="askSuggestion(this)">What are his career goals?</button>
+        </div>
+      </div>
+    </div>
+    <div class="profile-bot-input">
+      <input type="text" id="profileBotInput" placeholder="Ask me anything about Balje..." onkeydown="if(event.key==='Enter') sendBotMessage()" />
+      <button onclick="sendBotMessage()"><i class="fas fa-paper-plane"></i></button>
+    </div>
+  </div>
 
   <!-- Resume section -->
   <section class="resume-section" id="resumeSection">
@@ -325,7 +364,7 @@
               <div class="cert-details">
                 <h4>ITIL 4 Foundation</h4>
                 <p class="cert-issuer">AXELOS</p>
-                <span class="cert-badge inprogress">In Progress — Target Q4 2026</span>
+                <span class="cert-badge inprogress">In Progress — Target Q1 2026</span>
               </div>
             </div>
           </div>
