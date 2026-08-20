@@ -342,3 +342,174 @@ if (document.readyState === 'loading') {
 } else {
   initializeApp();
 }
+
+// ── Profile Bot ───────────────────────────────────────────────────────────────
+const PROFILE_KNOWLEDGE = `
+You are BN Assistant, a professional chatbot on Balje Nair's portfolio website (balje.tech).
+You ONLY answer questions about Balje's professional profile. If asked anything unrelated
+(politics, general knowledge, other people, etc.), politely redirect to Balje's profile.
+Keep answers concise, friendly, and professional.
+
+=== BALJE NAIR — PROFESSIONAL PROFILE ===
+
+CONTACT:
+- Email: BaljeNair@gmail.com
+- LinkedIn: linkedin.com/in/balje-nair-5735191b9
+- GitHub: github.com/BaljeNair
+- Website: https://Balje.Tech
+- Location: Singapore (Yishun)
+- Phone: +65 9154 0386
+
+ABOUT:
+Balje Nair is a results-driven IT Consultant and Infrastructure Specialist with 5+ years of
+experience supporting Fortune 500 clients across Singapore and the APAC region. He has worked
+at Capgemini, HCL (British Petroleum), and NCS via Jobster. He is currently open to remote
+and hybrid roles, including opportunities in the UAE.
+
+CURRENT ROLE:
+- Consultant at Capgemini (Feb 2025 – Present)
+- Delivers end-to-end technical support and infrastructure services for enterprise clients
+- Supports C-level executives, AV/IT events, asset management, and ServiceNow
+
+WORK EXPERIENCE:
+1. Capgemini — Consultant (Feb 2025 – Present, Singapore)
+   - End-to-end enterprise IT support including C-level executives
+   - High-priority incident resolution via ServiceNow and remote tools
+   - Zero-disruption AV/IT support at executive meetings
+   - Asset management and process documentation
+
+2. HCL (British Petroleum) — Specialist E2 (Mar 2023 – Aug 2024, Singapore)
+   - Technical support for 300+ users including BitLocker, MFA, AD, AAD
+   - IT procurement and monthly physical audits
+   - Supported Castrol China VP townhall event
+   - Tools: ServiceNow, Azure AD, SysTrack, WorkBlaze
+
+3. NCS via Jobster — Infrastructure Engineer / Technical Refresh Engineer (Jan 2021 – Mar 2023)
+   - Led large-scale imaging, baseline setup, and system deployment
+   - Key contributor at ASEAN DG Meet as Lead Support Engineer
+   - Awards: NCS Infra Excellence Awards Q3 & Q4 2022, Best MS Team Award
+
+EDUCATION:
+- BSc (Hons) Computing Science — Coventry University via PSB Academy (Apr 2024 – Aug 2026, Expected)
+- Diploma in InfoComm Technology — PSB Academy (Mar 2023 – Apr 2024)
+- Diploma in Mechatronics — Temasek Polytechnic (2012–2016)
+  Final Year Project: Designed and built a custom 3D printer
+
+CERTIFICATIONS:
+- ITIL 4 Foundation — In Progress (Target: Q1 2026, AXELOS)
+
+TECHNICAL SKILLS:
+- ServiceNow (95%) — ITSM, incident management, ticketing
+- Azure AD / Microsoft Entra ID (90%) — IAM, MFA, SSO
+- Apple Business Manager / ABM (90%) — Apple device management
+- Python (75%) — scripting and automation
+- JavaScript (65%) — web development
+- SQL (60%) — database queries
+
+TOOLS & PLATFORMS:
+ServiceNow, Microsoft Azure, Azure AD, Apple Business Manager (ABM),
+SysTrack, WorkBlaze, Google Workspace, Slack, Jamf, Bloomberg, Refinitiv,
+Microsoft Intune, Autopilot, Active Directory
+
+LANGUAGES:
+- English (Fluent), Tamil (Fluent)
+- Mandarin, Thai, Spanish, Tagalog (Elementary)
+
+LEADERSHIP:
+- Deputized for manager across APAC, Middle East, and Egypt at Capgemini
+- Mentored junior engineers during hardware refresh projects
+- Led technical teams at executive-level events
+- Key liaison between internal technical teams and external stakeholders
+
+CAREER GOALS:
+Balje is actively seeking remote or hybrid IT roles — particularly Team Lead, Senior IT Support,
+or Infrastructure Specialist positions. He is open to Singapore-based and UAE roles.
+Salary expectation: SGD 6,500/month for Singapore roles.
+
+PERSONALITY & WORK STYLE:
+Fast learner, team player, adaptable, detail-oriented. Takes ownership and thrives in
+high-stakes environments. Comfortable supporting senior stakeholders and managing
+cross-functional coordination.
+
+AWARDS:
+- NCS Infra Excellence Award Q3 2022
+- NCS Infra Excellence Award Q4 2022
+- Best MS Team Award (NCS)
+
+AVAILABILITY:
+Currently employed at Capgemini but open to new opportunities. Available for interviews.
+`;
+
+function openProfileBot() {
+  document.getElementById('profileBot').classList.add('active');
+  document.getElementById('profileBotOverlay').classList.add('active');
+  document.getElementById('profileBotInput').focus();
+}
+
+function closeProfileBot() {
+  document.getElementById('profileBot').classList.remove('active');
+  document.getElementById('profileBotOverlay').classList.remove('active');
+}
+
+function askSuggestion(btn) {
+  const q = btn.textContent.trim();
+  document.getElementById('profileBotInput').value = q;
+  sendBotMessage();
+}
+
+function appendBotMsg(text, role) {
+  const msgs = document.getElementById('profileBotMessages');
+  const div = document.createElement('div');
+  div.className = `bot-msg ${role}`;
+  const p = document.createElement('p');
+  p.textContent = text;
+  div.appendChild(p);
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+  return div;
+}
+
+function showTyping() {
+  const msgs = document.getElementById('profileBotMessages');
+  const div = document.createElement('div');
+  div.className = 'bot-typing';
+  div.id = 'botTyping';
+  div.innerHTML = '<span></span><span></span><span></span>';
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function removeTyping() {
+  const t = document.getElementById('botTyping');
+  if (t) t.remove();
+}
+
+async function sendBotMessage() {
+  const input = document.getElementById('profileBotInput');
+  const question = input.value.trim();
+  if (!question) return;
+  input.value = '';
+
+  appendBotMsg(question, 'user');
+  showTyping();
+
+  try {
+    const response = await fetch('https://bn-assistant.baljenair.workers.dev', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 1000,
+        system: PROFILE_KNOWLEDGE,
+        messages: [{ role: 'user', content: question }]
+      })
+    });
+    const data = await response.json();
+    removeTyping();
+    const reply = data.content?.[0]?.text || "I'm not sure about that. Try asking about Balje's skills, experience, or background!";
+    appendBotMsg(reply, 'bot');
+  } catch (err) {
+    removeTyping();
+    appendBotMsg("Sorry, I'm having trouble connecting right now. Please try again shortly!", 'bot');
+  }
+}
