@@ -1,515 +1,106 @@
-// DOM Elements
-const themeToggle = document.getElementById('themeToggle');
 const body = document.body;
+const themeToggle = document.getElementById('themeToggle');
+const resumeSection = document.getElementById('resumeSection');
 const viewResumeBtn = document.getElementById('viewResumeBtn');
 const closeResumeBtn = document.getElementById('closeResumeBtn');
-const resumeSection = document.getElementById('resumeSection');
-const contactBtn = document.getElementById('contactBtn');
-const contactModal = document.getElementById('contactModal');
-const closeModalBtn = document.getElementById('closeModalBtn');
+const profileBot = document.getElementById('profileBot');
+const profileBotOverlay = document.getElementById('profileBotOverlay');
+const messages = document.getElementById('profileBotMessages');
+const botInput = document.getElementById('profileBotInput');
 
-// ── Theme Management ─────────────────────────────────────────────────────────
-let currentTheme = localStorage.getItem('theme') || 'dark';
+const profileAnswers = [
+  { keys: ['skill', 'tool', 'technical', 'good at'], answer: 'Balje works across endpoint support, identity and device management, ITSM, AV readiness, and practical scripting. His core tools include ServiceNow, Entra ID, Intune, SCCM, ABM, Microsoft 365, Python, and JavaScript.' },
+  { keys: ['worked', 'experience', 'company', 'role'], answer: 'Balje is currently open to work. His most recent role was Consultant at Capgemini (February–May 2025). Previously, he was a Specialist E2 supporting British Petroleum through HCL, and an Infrastructure / Technical Refresh Engineer at NCS via Jobster.' },
+  { keys: ['project', 'built', 'achievement'], answer: 'Selected work includes a hardened Windows enterprise baseline at NCS, APAC escalation leadership at Capgemini, executive AV readiness at BP and Capgemini, and ServiceNow-led onboarding and offboarding workflows.' },
+  { keys: ['open', 'available', 'hire', 'work'], answer: 'Yes. Balje is open to remote or hybrid opportunities, especially roles involving senior IT support, infrastructure, service delivery, or team leadership. His most recent role was Consultant at Capgemini from February to May 2025.' },
+  { keys: ['education', 'study', 'degree', 'certification', 'itil', 'ai', 'artificial intelligence', 'course'], answer: 'He is pursuing a BSc (Hons) in Computing Science through Coventry University / PSB Academy, expected in August 2027. He also completed Agentic Artificial Intelligence (AI) for Business Processes at Republic Polytechnic in October 2026. ITIL 4 Foundation is listed with AXELOS; the current certification status is to be confirmed.' },
+  { keys: ['language'], answer: 'English and Tamil are fluent. Mandarin and Tagalog are listed at elementary level in the current profile.' }
+];
 
-function initializeTheme() {
-  if (currentTheme === 'light') {
-    body.classList.add('light-theme');
-    updateThemeIcon('light');
-  } else {
-    body.classList.remove('light-theme');
-    updateThemeIcon('dark');
-  }
+function initTheme() {
+  const saved = localStorage.getItem('portfolio-theme');
+  if (saved === 'light') body.classList.add('light-theme');
+  updateThemeIcon();
 }
-
-function updateThemeIcon(theme) {
-  const icon = themeToggle ? themeToggle.querySelector('i') : null;
-  if (icon) icon.className = theme === 'light' ? 'fas fa-sun' : 'fas fa-moon';
+function updateThemeIcon() {
+  const icon = themeToggle?.querySelector('i');
+  if (icon) icon.className = body.classList.contains('light-theme') ? 'fas fa-sun' : 'fas fa-moon';
 }
-
 function toggleTheme() {
-  if (currentTheme === 'dark') {
-    currentTheme = 'light';
-    body.classList.add('light-theme');
-    updateThemeIcon('light');
-  } else {
-    currentTheme = 'dark';
-    body.classList.remove('light-theme');
-    updateThemeIcon('dark');
-  }
-  localStorage.setItem('theme', currentTheme);
-  // Re-draw chart with correct theme colors if visible
-  if (skillChartInstance) initSkillChart();
+  body.classList.toggle('light-theme');
+  localStorage.setItem('portfolio-theme', body.classList.contains('light-theme') ? 'light' : 'dark');
+  updateThemeIcon();
 }
-
-// ── Animated Skill Bars ──────────────────────────────────────────────────────
-function animateSkillBars() {
-  const bars = document.querySelectorAll('.skill-bar-fill');
-  bars.forEach(bar => {
-    bar.style.width = bar.getAttribute('data-pct') + '%';
-  });
-}
-
-// ── Skills Radar Chart ───────────────────────────────────────────────────────
-let skillChartInstance = null;
-
-function initSkillChart() {
-  const canvas = document.getElementById('skillChart');
-  if (!canvas) return;
-  if (skillChartInstance) { skillChartInstance.destroy(); skillChartInstance = null; }
-  const isDark = !body.classList.contains('light-theme');
-  const accent     = isDark ? '#80cfff' : '#0077b6';
-  const accentFill = isDark ? 'rgba(128,207,255,0.18)' : 'rgba(0,119,182,0.15)';
-  const gridColor  = isDark ? 'rgba(128,207,255,0.18)' : 'rgba(0,119,182,0.15)';
-  const labelColor = isDark ? '#c2e9fb' : '#0d1f2d';
-  const tickColor  = isDark ? '#80cfff' : '#0077b6';
-  const pointBorder = isDark ? '#183059' : '#eaf3fb';
-  const tooltipBg  = isDark ? 'rgba(24,48,89,0.96)' : 'rgba(234,243,251,0.98)';
-  const tooltipText = isDark ? '#c2e9fb' : '#0d1f2d';
-
-  skillChartInstance = new Chart(canvas, {
-    type: 'radar',
-    data: {
-      labels: ['Python', 'SQL', 'JavaScript', 'ServiceNow', 'Azure AD', 'ABM'],
-      datasets: [{
-        label: 'Proficiency',
-        data: [75, 60, 65, 95, 90, 90],
-        backgroundColor: accentFill, borderColor: accent, borderWidth: 2,
-        pointBackgroundColor: accent, pointBorderColor: pointBorder, pointBorderWidth: 2,
-        pointRadius: 4, pointHoverRadius: 6,
-        pointHoverBackgroundColor: '#fff', pointHoverBorderColor: accent
-      }]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: true,
-      animation: { duration: 900, easing: 'easeInOutQuart' },
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          backgroundColor: tooltipBg, titleColor: accent, bodyColor: tooltipText,
-          borderColor: accent, borderWidth: 1, padding: 10,
-          callbacks: { label: ctx => ` ${ctx.raw}%` }
-        }
-      },
-      scales: {
-        r: {
-          min: 0, max: 100,
-          ticks: { stepSize: 25, color: tickColor, backdropColor: 'transparent', font: { size: 10 } },
-          grid: { color: gridColor }, angleLines: { color: gridColor },
-          pointLabels: { color: labelColor, font: { size: 11, weight: '600' } }
-        }
-      }
-    }
-  });
-}
-
-// ── Resume Management ────────────────────────────────────────────────────────
-function showResume() {
+function openResume() {
   resumeSection.classList.add('active');
-  resumeSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  viewResumeBtn.innerHTML = '<i class="fas fa-eye-slash"></i> Hide Resume';
-  const structured = document.getElementById('resumeStructured');
-  if (structured) structured.style.display = '';
-  setTimeout(initSkillChart, 350);
-  setTimeout(animateSkillBars, 500);
-
-  fetch('assets/resume.json', { cache: 'no-store' })
-    .then(r => (r.ok ? r.json() : null))
-    .then(data => {
-      if (!data) return;
-      const summaryEl = document.getElementById('summaryText');
-      if (summaryEl && data.professionalSummary) summaryEl.textContent = data.professionalSummary;
-      const expList = document.getElementById('experienceList');
-      if (expList && Array.isArray(data.experience)) {
-        expList.innerHTML = '';
-        data.experience.forEach((item, idx) => {
-          const div = document.createElement('div'); div.className = 'experience-item';
-          const h4 = document.createElement('h4'); h4.textContent = item.title || `Experience ${idx + 1}`;
-          const p = document.createElement('p'); p.className = 'date'; p.textContent = item.dates || '';
-          const ul = document.createElement('ul');
-          (item.bullets || []).forEach(b => { const li = document.createElement('li'); li.textContent = b; ul.appendChild(li); });
-          div.appendChild(h4);
-          if (p.textContent) div.appendChild(p);
-          if (ul.children.length) div.appendChild(ul);
-          expList.appendChild(div);
-        });
-      }
-      const eduList = document.getElementById('educationList');
-      if (eduList && Array.isArray(data.education)) {
-        eduList.innerHTML = '';
-        data.education.forEach((edu, idx) => {
-          const wrap = document.createElement('div'); wrap.className = 'education-item';
-          const h4 = document.createElement('h4'); h4.textContent = edu.degree || `Education ${idx + 1}`;
-          const pInst = document.createElement('p'); pInst.textContent = edu.institution || '';
-          const pDate = document.createElement('p'); pDate.className = 'date'; pDate.textContent = edu.date || '';
-          const pNotes = document.createElement('p'); pNotes.textContent = edu.notes || '';
-          wrap.appendChild(h4);
-          if (pInst.textContent) wrap.appendChild(pInst);
-          if (pDate.textContent) wrap.appendChild(pDate);
-          if (pNotes.textContent) wrap.appendChild(pNotes);
-          eduList.appendChild(wrap);
-        });
-      }
-    })
-    .catch(() => {});
-}
-
-function hideResume() {
-  resumeSection.classList.remove('active');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-  viewResumeBtn.innerHTML = '<i class="fas fa-file-alt"></i> View Resume';
-}
-
-function showContactModal() {
-  contactModal.classList.add('active');
+  resumeSection.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
 }
-
-function hideContactModal() {
-  contactModal.classList.remove('active');
+function closeResume() {
+  resumeSection.classList.remove('active');
+  resumeSection.setAttribute('aria-hidden', 'true');
   document.body.style.overflow = '';
 }
-
-function handleModalClick(event) {
-  if (event.target === contactModal) hideContactModal();
+function openBot() {
+  profileBot.classList.add('active');
+  profileBotOverlay.classList.add('active');
+  botInput?.focus();
 }
-
-function handleKeyboard(event) {
-  if (event.key === 'Escape') {
-    if (contactModal.classList.contains('active')) hideContactModal();
-    if (resumeSection.classList.contains('active')) hideResume();
-  }
+function closeBot() {
+  profileBot.classList.remove('active');
+  profileBotOverlay.classList.remove('active');
 }
-
-function addScrollAnimations() {
-  const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, observerOptions);
-  document.querySelectorAll('.resume-section-item').forEach(item => {
-    item.style.opacity = '0';
-    item.style.transform = 'translateY(30px)';
-    item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    observer.observe(item);
+function appendMessage(text, role) {
+  const item = document.createElement('div');
+  item.className = `bot-msg ${role}`;
+  item.innerHTML = `<p>${text}</p>`;
+  messages.appendChild(item);
+  messages.scrollTop = messages.scrollHeight;
+}
+function answerQuestion(question) {
+  const normalized = question.toLowerCase();
+  const match = profileAnswers.find(entry => entry.keys.some(key => normalized.includes(key)));
+  return match?.answer || 'I can help with Balje’s professional profile — try asking about his skills, experience, projects, education, or availability.';
+}
+function setAssistantWorking(isWorking) {
+  document.querySelectorAll('.assistant-avatar').forEach(avatar => {
+    avatar.classList.toggle('assistant-working', isWorking);
+    avatar.setAttribute('aria-busy', isWorking ? 'true' : 'false');
   });
 }
-
-// ── App Initialization ───────────────────────────────────────────────────────
-function initializeApp() {
-  initializeTheme();
-
-  closeModalBtn.addEventListener('click', hideContactModal);
-  contactModal.addEventListener('click', handleModalClick);
-
-  themeToggle.addEventListener('click', toggleTheme);
-
-  function toggleResume() {
-    if (resumeSection.classList.contains('active')) {
-      hideResume();
-    } else {
-      showResume();
-    }
-  }
-  viewResumeBtn.addEventListener('click', toggleResume);
-  closeResumeBtn.addEventListener('click', hideResume);
-
-  const backBtn = document.getElementById('backToTopBtn');
-  if (backBtn) {
-    viewResumeBtn.addEventListener('click', () => {
-      if (resumeSection.classList.contains('active')) backBtn.classList.add('visible');
-      else backBtn.classList.remove('visible');
-    });
-    closeResumeBtn.addEventListener('click', () => backBtn.classList.remove('visible'));
-    backBtn.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      hideResume();
-      backBtn.classList.remove('visible');
-    });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') backBtn.classList.remove('visible'); });
-  }
-
-  contactBtn.addEventListener('click', e => {
-    e.preventDefault();
-    const connect = document.getElementById('connectSection');
-    if (connect) connect.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    else showContactModal();
-  });
-
-  document.addEventListener('keydown', handleKeyboard);
-
-  // Button hover + ripple effects
-  document.querySelectorAll('.btn').forEach(button => {
-    button.addEventListener('mouseenter', function () { this.style.transform = 'translateY(-2px)'; });
-    button.addEventListener('mouseleave', function () { this.style.transform = 'translateY(0)'; });
-    button.addEventListener('click', function (e) {
-      const r = document.createElement('span'); r.className = 'ripple';
-      const rect = this.getBoundingClientRect();
-      r.style.left = e.clientX - rect.left + 'px';
-      r.style.top = e.clientY - rect.top + 'px';
-      this.appendChild(r); setTimeout(() => r.remove(), 650);
-    });
-  });
-
-  // Hero fade-in on load
-  const heroContent = document.querySelector('.hero-content');
-  if (heroContent) {
-    heroContent.style.opacity = '0';
-    heroContent.style.transform = 'translateY(30px)';
-    setTimeout(() => {
-      heroContent.style.transition = 'opacity 1s ease, transform 1s ease';
-      heroContent.style.opacity = '1';
-      heroContent.style.transform = 'translateY(0)';
-    }, 100);
-  }
-
-  // Logo fallback
-  (function initHeaderLogo() {
-    const img = document.querySelector('.logo-img');
-    if (!img) return;
-    img.addEventListener('load', () => img.classList.add('is-loaded'), { once: true });
-    img.addEventListener('error', () => {
-      const h1 = img.closest('.logo');
-      if (h1) h1.innerHTML = '<span class="logo-text">Balje Nair</span>';
-    }, { once: true });
-  })();
-
-  // Scroll progress bar
-  const sp = document.getElementById('scrollProgress');
-  if (sp) {
-    const onScroll = () => {
-      const h = document.documentElement;
-      const st = h.scrollTop || document.body.scrollTop;
-      const sh = h.scrollHeight - h.clientHeight;
-      sp.style.width = (sh === 0 ? 0 : (st / sh) * 100) + '%';
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-  }
-
-  // Smooth scroll for nav links
-  document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', e => {
-      const href = link.getAttribute('href');
-      if (href && href.startsWith('#')) {
-        e.preventDefault();
-        const target = document.querySelector(href) ||
-                       document.getElementById(href.slice(1));
-        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
-  });
-
-  // Highlight active nav link on scroll
-  const navSections = ['hero', 'about', 'skills', 'experience', 'certifications', 'connectSection'];
-  const navLinks = document.querySelectorAll('.nav-link');
-  const onNavScroll = () => {
-    let current = '';
-    navSections.forEach(id => {
-      const el = document.getElementById(id);
-      if (el && window.scrollY >= el.offsetTop - 120) current = id;
-    });
-    navLinks.forEach(link => {
-      const href = link.getAttribute('href').slice(1);
-      link.classList.toggle('nav-link-active', href === current);
-    });
-  };
-  window.addEventListener('scroll', onNavScroll, { passive: true });
-  onNavScroll();
-
-  // Card tilt effect (subtle, professional)
-  document.querySelectorAll('.resume-section-item').forEach(card => {
-    const glow = document.createElement('div'); glow.className = 'tilt-glow'; card.appendChild(glow);
-    card.addEventListener('mousemove', e => {
-      const rect = card.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 100;
-      const y = ((e.clientY - rect.top) / rect.height) * 100;
-      card.style.setProperty('--mx', `${x}%`);
-      card.style.setProperty('--my', `${y}%`);
-      card.style.transform = `rotateX(${((e.clientY - rect.top) - rect.height / 2) / 30}deg) rotateY(${(-(e.clientX - rect.left) + rect.width / 2) / 30}deg)`;
-    });
-    card.addEventListener('mouseleave', () => { card.style.transform = ''; });
-  });
-
-  addScrollAnimations();
-}
-
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initializeApp);
-} else {
-  initializeApp();
-}
-
-// ── Profile Bot ───────────────────────────────────────────────────────────────
-const PROFILE_KNOWLEDGE = `
-You are BN Assistant, a professional chatbot on Balje Nair's portfolio website (balje.tech).
-You ONLY answer questions about Balje's professional profile. If asked anything unrelated
-(politics, general knowledge, other people, etc.), politely redirect to Balje's profile.
-Keep answers concise, friendly, and professional.
-
-=== BALJE NAIR — PROFESSIONAL PROFILE ===
-
-CONTACT:
-- Email: BaljeNair@gmail.com
-- LinkedIn: linkedin.com/in/balje-nair-5735191b9
-- GitHub: github.com/BaljeNair
-- Website: https://Balje.Tech
-- Location: Singapore (Yishun)
-- Phone: +65 9154 0386
-
-ABOUT:
-Balje Nair is a results-driven IT Consultant and Infrastructure Specialist with 5+ years of
-experience supporting Fortune 500 clients across Singapore and the APAC region. He has worked
-at Capgemini, HCL (British Petroleum), and NCS via Jobster. He is currently open to remote
-and hybrid roles, including opportunities in the UAE.
-
-CURRENT ROLE:
-- Consultant at Capgemini (Feb 2025 – Present)
-- Delivers end-to-end technical support and infrastructure services for enterprise clients
-- Supports C-level executives, AV/IT events, asset management, and ServiceNow
-
-WORK EXPERIENCE:
-1. Capgemini — Consultant (Feb 2025 – Present, Singapore)
-   - End-to-end enterprise IT support including C-level executives
-   - High-priority incident resolution via ServiceNow and remote tools
-   - Zero-disruption AV/IT support at executive meetings
-   - Asset management and process documentation
-
-2. HCL (British Petroleum) — Specialist E2 (Mar 2023 – Aug 2024, Singapore)
-   - Technical support for 300+ users including BitLocker, MFA, AD, AAD
-   - IT procurement and monthly physical audits
-   - Supported Castrol China VP townhall event
-   - Tools: ServiceNow, Azure AD, SysTrack, WorkBlaze
-
-3. NCS via Jobster — Infrastructure Engineer / Technical Refresh Engineer (Jan 2021 – Mar 2023)
-   - Led large-scale imaging, baseline setup, and system deployment
-   - Key contributor at ASEAN DG Meet as Lead Support Engineer
-   - Awards: NCS Infra Excellence Awards Q3 & Q4 2022, Best MS Team Award
-
-EDUCATION:
-- BSc (Hons) Computing Science — Coventry University via PSB Academy (Apr 2024 – Aug 2026, Expected)
-- Diploma in InfoComm Technology — PSB Academy (Mar 2023 – Apr 2024)
-- Diploma in Mechatronics — Temasek Polytechnic (2012–2016)
-  Final Year Project: Designed and built a custom 3D printer
-
-CERTIFICATIONS:
-- ITIL 4 Foundation — In Progress (Target: Q1 2026, AXELOS)
-
-TECHNICAL SKILLS:
-- ServiceNow (95%) — ITSM, incident management, ticketing
-- Azure AD / Microsoft Entra ID (90%) — IAM, MFA, SSO
-- Apple Business Manager / ABM (90%) — Apple device management
-- Python (75%) — scripting and automation
-- JavaScript (65%) — web development
-- SQL (60%) — database queries
-
-TOOLS & PLATFORMS:
-ServiceNow, Microsoft Azure, Azure AD, Apple Business Manager (ABM),
-SysTrack, WorkBlaze, Google Workspace, Slack, Jamf, Bloomberg, Refinitiv,
-Microsoft Intune, Autopilot, Active Directory
-
-LANGUAGES:
-- English (Fluent), Tamil (Fluent)
-- Mandarin, Thai, Spanish, Tagalog (Elementary)
-
-LEADERSHIP:
-- Deputized for manager across APAC, Middle East, and Egypt at Capgemini
-- Mentored junior engineers during hardware refresh projects
-- Led technical teams at executive-level events
-- Key liaison between internal technical teams and external stakeholders
-
-CAREER GOALS:
-Balje is actively seeking remote or hybrid IT roles — particularly Team Lead, Senior IT Support,
-or Infrastructure Specialist positions. He is open to Singapore-based and UAE roles.
-Salary expectation: SGD 6,500/month for Singapore roles.
-
-PERSONALITY & WORK STYLE:
-Fast learner, team player, adaptable, detail-oriented. Takes ownership and thrives in
-high-stakes environments. Comfortable supporting senior stakeholders and managing
-cross-functional coordination.
-
-AWARDS:
-- NCS Infra Excellence Award Q3 2022
-- NCS Infra Excellence Award Q4 2022
-- Best MS Team Award (NCS)
-
-AVAILABILITY:
-Currently employed at Capgemini but open to new opportunities. Available for interviews.
-`;
-
-function openProfileBot() {
-  document.getElementById('profileBot').classList.add('active');
-  document.getElementById('profileBotOverlay').classList.add('active');
-  document.getElementById('profileBotInput').focus();
-}
-
-function closeProfileBot() {
-  document.getElementById('profileBot').classList.remove('active');
-  document.getElementById('profileBotOverlay').classList.remove('active');
-}
-
-function askSuggestion(btn) {
-  const q = btn.textContent.trim();
-  document.getElementById('profileBotInput').value = q;
-  sendBotMessage();
-}
-
-function appendBotMsg(text, role) {
-  const msgs = document.getElementById('profileBotMessages');
-  const div = document.createElement('div');
-  div.className = `bot-msg ${role}`;
-  const p = document.createElement('p');
-  p.textContent = text;
-  div.appendChild(p);
-  msgs.appendChild(div);
-  msgs.scrollTop = msgs.scrollHeight;
-  return div;
-}
-
-function showTyping() {
-  const msgs = document.getElementById('profileBotMessages');
-  const div = document.createElement('div');
-  div.className = 'bot-typing';
-  div.id = 'botTyping';
-  div.innerHTML = '<span></span><span></span><span></span>';
-  msgs.appendChild(div);
-  msgs.scrollTop = msgs.scrollHeight;
-}
-
-function removeTyping() {
-  const t = document.getElementById('botTyping');
-  if (t) t.remove();
-}
-
-async function sendBotMessage() {
-  const input = document.getElementById('profileBotInput');
-  const question = input.value.trim();
+function sendBotMessage(text) {
+  const question = (text || botInput.value).trim();
   if (!question) return;
-  input.value = '';
-
-  appendBotMsg(question, 'user');
-  showTyping();
-
-  try {
-    const response = await fetch('https://bn-assistant.baljenair.workers.dev', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
-        max_tokens: 1000,
-        system: PROFILE_KNOWLEDGE,
-        messages: [{ role: 'user', content: question }]
-      })
-    });
-    const data = await response.json();
-    removeTyping();
-    const reply = data.content?.[0]?.text || "I'm not sure about that. Try asking about Balje's skills, experience, or background!";
-    appendBotMsg(reply, 'bot');
-  } catch (err) {
-    removeTyping();
-    appendBotMsg("Sorry, I'm having trouble connecting right now. Please try again shortly!", 'bot');
-  }
+  botInput.value = '';
+  appendMessage(question, 'user');
+  setAssistantWorking(true);
+  window.setTimeout(() => {
+    appendMessage(answerQuestion(question), 'bot');
+    setAssistantWorking(false);
+  }, 760);
 }
+
+if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
+if (viewResumeBtn) viewResumeBtn.addEventListener('click', openResume);
+if (closeResumeBtn) closeResumeBtn.addEventListener('click', closeResume);
+if (document.getElementById('wantToKnowBtn')) document.getElementById('wantToKnowBtn').addEventListener('click', openBot);
+if (document.getElementById('closeBotBtn')) document.getElementById('closeBotBtn').addEventListener('click', closeBot);
+if (profileBotOverlay) profileBotOverlay.addEventListener('click', closeBot);
+if (document.getElementById('sendBotBtn')) document.getElementById('sendBotBtn').addEventListener('click', () => sendBotMessage());
+if (botInput) botInput.addEventListener('keydown', event => { if (event.key === 'Enter') sendBotMessage(); });
+document.querySelectorAll('.bot-suggestions button').forEach(button => button.addEventListener('click', () => sendBotMessage(button.textContent)));
+document.addEventListener('keydown', event => { if (event.key === 'Escape') { closeResume(); closeBot(); } });
+
+const progress = document.getElementById('scrollProgress');
+window.addEventListener('scroll', () => {
+  const page = document.documentElement;
+  const ratio = page.scrollHeight - page.clientHeight;
+  if (progress) progress.style.width = `${ratio ? (page.scrollTop / ratio) * 100 : 0}%`;
+}, { passive: true });
+
+const revealTargets = document.querySelectorAll('.project-card, .toolkit-card, .timeline-item, .status-card');
+const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+  if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); }
+}), { threshold: 0.08 });
+revealTargets.forEach(item => { item.classList.add('reveal'); observer.observe(item); });
+initTheme();
