@@ -27,7 +27,7 @@
   .section-pad { padding:78px 0; }
   .section-intro { display:block; margin-bottom:28px; }.section-intro>p { margin-top:20px; }
   .project-grid { grid-template-columns:1fr; }.project-card { min-height:480px; }.project-number { margin-bottom:50px; }
-  .toolkit-grid { grid-template-columns:1fr; }.lab-grid { grid-template-columns:1fr; }.status-row { display:block; }.status-row strong { display:block; text-align:left; margin-top:5px; }.contact-links a { grid-template-columns:75px 1fr auto; }
+  .toolkit-grid { grid-template-columns:1fr; }.lab-grid { grid-template-columns:1fr; }.lab-card-actions { flex-wrap:wrap; }.status-row { display:block; }.status-row strong { display:block; text-align:left; margin-top:5px; }.contact-links a { grid-template-columns:75px 1fr auto; }
   .assistant-bar { display:grid; grid-template-columns:1fr auto; gap:14px; }.assistant-bar>p { grid-column:1 / -1; order:3; }.assistant-bar .button { font-size:.7rem; padding:10px 12px; }
   .drawer-inner { width:calc(100% - 32px); }.drawer-header { align-items:flex-start; gap:15px; }.drawer-actions .button { font-size:.7rem; padding:10px; }.drawer-actions .icon-button { flex-shrink:0; }
   .site-footer .container { flex-wrap:wrap; }.site-footer a { width:100%; }

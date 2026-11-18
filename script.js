@@ -9,6 +9,8 @@ const messages = document.getElementById('profileBotMessages');
 const botInput = document.getElementById('profileBotInput');
 
 const profileAnswers = [
+  { keys: ['operations lab', 'endpoint readiness', 'jml', 'joiner mover leaver', 'knowledge assistant'], answer: 'The <a href="projects/endpoint-readiness/">Endpoint Refresh Readiness Checker</a> turns synthetic device inventory into ready, review, and blocked decisions. The <a href="projects/jml-workflow/">Joiner–Mover–Leaver Workflow Simulator</a> makes identity and device handoffs visible, and the <a href="projects/it-support-assistant/">IT Support Knowledge Assistant</a> answers from a bounded source library.' },
+  { keys: ['case stud', 'case-study', 'windows baseline', 'apac service', 'service delivery'], answer: 'There are two professional case studies: <a href="case-studies/windows-baseline.html">Windows enterprise baseline</a> covers a secure, repeatable endpoint build, while <a href="case-studies/apac-service-delivery.html">APAC service delivery</a> covers escalation ownership and executive stakeholder coordination.' },
   { keys: ['skill', 'tool', 'technical', 'good at'], answer: 'Balje works across endpoint support, identity and device management, ITSM, AV readiness, and practical scripting. His core tools include ServiceNow, Entra ID, Intune, SCCM, ABM, Microsoft 365, Python, and JavaScript.' },
   { keys: ['worked', 'experience', 'company', 'role'], answer: 'Balje is currently open to work. His most recent role was Consultant at Capgemini (February–May 2025). Previously, he was a Specialist E2 supporting British Petroleum through HCL, and an Infrastructure / Technical Refresh Engineer at NCS via Jobster.' },
   { keys: ['project', 'built', 'achievement'], answer: 'Selected work includes a hardened Windows enterprise baseline at NCS, APAC escalation leadership at Capgemini, executive AV readiness at BP and Capgemini, and ServiceNow-led onboarding and offboarding workflows.' },
@@ -53,7 +55,10 @@ function closeBot() {
 function appendMessage(text, role) {
   const item = document.createElement('div');
   item.className = `bot-msg ${role}`;
-  item.innerHTML = `<p>${text}</p>`;
+  const paragraph = document.createElement('p');
+  if (role === 'bot') paragraph.innerHTML = text;
+  else paragraph.textContent = text;
+  item.appendChild(paragraph);
   messages.appendChild(item);
   messages.scrollTop = messages.scrollHeight;
 }
