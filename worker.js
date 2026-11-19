@@ -67,6 +67,10 @@ export default {
     });
 
     const data = await anthropicRes.json();
+    console.log('Anthropic status:', anthropicRes.status);
+    console.log('Anthropic response:', JSON.stringify(data));
+    console.log('API key exists:', !!env.ANTHROPIC_API_KEY);
+    console.log('API key length:', env.ANTHROPIC_API_KEY ? env.ANTHROPIC_API_KEY.length : 0);
 
     return new Response(JSON.stringify(data), {
       status: anthropicRes.status,

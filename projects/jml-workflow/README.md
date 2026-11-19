@@ -15,7 +15,7 @@ HTML, CSS, JavaScript, DOM state, accessible buttons, checkboxes, and local synt
 This demo communicates ITSM and identity-management thinking through a concrete interaction: access is not simply “done”; each lifecycle event has an owner-visible sequence and closure state.
 
 ## Case study
-Read the longer project narrative in [CASE-STUDY.md](CASE-STUDY.md).
+Read the longer project narrative on the [rendered case-study page](case-study.html). The source Markdown is retained in [CASE-STUDY.md](CASE-STUDY.md) for GitHub documentation.
 
 ## Data and scope
 This is a personal project. All names, dates, assignments, and workflow records are fictional synthetic data. It does not modify real identities, devices, or applications.

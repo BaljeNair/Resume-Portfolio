@@ -12,6 +12,7 @@ const profileAnswers = [
   { keys: ['where has balje worked', 'where has he worked', 'employers', 'previous companies'], answer: 'Balje worked at <strong>NCS via Jobster</strong> as an Infrastructure Engineer from January 2021 to March 2023; <strong>HCL for British Petroleum</strong> as a Specialist E2 from March 2023 to August 2024; and <strong>Capgemini</strong> as a Consultant from February to May 2025.' },
   { keys: ['how many years', 'years of experience', 'how much experience'], answer: 'Balje has <strong>4+ years of enterprise IT experience</strong> covering January 2021 to May 2025 across NCS, HCL / British Petroleum, and Capgemini.' },
   { keys: ['roles looking', 'target roles', 'what roles', 'looking for'], answer: 'He is targeting <strong>Senior IT Support, Endpoint Engineering, and Infrastructure / Service Delivery</strong> roles in Singapore.' },
+  { keys: ['how many tickets did balje handle per week at capgemini', 'how many tickets per week at capgemini', "what was balje's ticket volume at capgemini", 'how many users did balje support at capgemini', 'tickets per week at capgemini', '30-40', '80-100'], answer: 'At Capgemini (Feb–May 2025), Balje handled about <strong>30–40 ServiceNow tickets per week</strong>, supporting about <strong>80–100 users</strong> in the Singapore office. He also deputised for the APAC IT Manager, leading cross-regional support calls and handling C-level escalations.' },
   { keys: ['what did he do at capgemini', 'capgemini role', 'capgemini experience'], answer: 'At Capgemini, Balje supported about <strong>80–100 users</strong> in the Singapore office and handled roughly <strong>30–40 ServiceNow tickets per week</strong> alongside Microsoft 365 support. He also deputised for the APAC IT Manager, led cross-regional support calls, and liaised with Directors and VPs on escalations.' },
   { keys: ['what did he do at hcl', 'hcl bp', 'british petroleum', 'bp role'], answer: 'At HCL supporting British Petroleum, Balje provided first-line desktop support for <strong>300+ users</strong> across multiple locations, including endpoint imaging, BitLocker, MFA, device management, procurement, audits, and Bloomberg / Refinitiv trading-terminal support.' },
   { keys: ['strongest skills', 'best skills', 'core skills'], answer: 'His strongest skills include Microsoft 365, Entra ID / Active Directory, Intune / Autopilot, SCCM, ServiceNow, Windows 10/11, macOS, BitLocker, MFA and Conditional Access, desktop break-fix, and Teams / Zoom Rooms AV support.' },
@@ -111,6 +112,17 @@ if (document.getElementById('sendBotBtn')) document.getElementById('sendBotBtn')
 if (botInput) botInput.addEventListener('keydown', event => { if (event.key === 'Enter') sendBotMessage(); });
 document.querySelectorAll('.bot-suggestions button').forEach(button => button.addEventListener('click', () => sendBotMessage(button.textContent)));
 document.addEventListener('keydown', event => { if (event.key === 'Escape') { closeResume(); closeBot(); } });
+
+const contactForm = document.getElementById('contactForm');
+if (contactForm) contactForm.addEventListener('submit', event => {
+  event.preventDefault();
+  const data = new FormData(contactForm);
+  const subject = `Portfolio enquiry from ${data.get('name')}`;
+  const body = `Name: ${data.get('name')}\nEmail: ${data.get('email')}\n\n${data.get('message')}`;
+  window.location.href = `mailto:BaljeNair@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  const note = document.getElementById('contactFormNote');
+  if (note) note.textContent = 'Your email app should now be ready with the enquiry addressed to Balje.';
+});
 
 const progress = document.getElementById('scrollProgress');
 window.addEventListener('scroll', () => {
